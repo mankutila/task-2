@@ -11,35 +11,47 @@
      */
     function solution(map) {
         // todo: подсчитать кол-во островов на карте
-        let i, j,
-            checkMatrix = [],
-            result = 0;
+        var checkMatrix = [],
+            result = 0,
+            i, j;
 
         for (i = 0; i < map.length; i++) {
             checkMatrix.push([]);
             for (j = 0; j < map[i].length; j++) {
-                checkMatrix[i].push(false); // fill checkMatrix with 'false' - no cell is checked
+                checkMatrix[i].push(false); // заполняет checkMatrix значениями 'false' - значит, ни одна клетка не проверена
             }
         }
 
         for (i = 0; i < map.length; i++) {
             for (j = 0; j < map[i].length; j++) {
-                if (map[i][j]) {
+
+                if (map[i][j] && !checkMatrix[i][j]) {
+                    result++;
                     checkAround(map, i, j);
-                    if (!checkMatrix[i][j]) {
-                        result++;
-                        checkMatrix[i][j] = true;
-                    }
+
                 }
             }
         }
 
+        /**
+         * Функция проверяет и отмечает в проверочной матрице клетки с "сушей" вокруг текущей клетки
+         *
+         * @param {number[][]} map карта островов представленная двумерной матрицей чисел
+         * @param {number} i координата клетки в строке
+         * @param {number} j координата клетки в стоблце
+         */
+
         function checkAround(map, i, j) {
-            if (i < map.length - 1) {
-                if (map[i + 1][j]) { checkMatrix[i + 1][j] = true; }
-                if (map[i + 1][j] && map[i + 1][j - 1]) { checkMatrix[i + 1][j - 1] = true; }
+
+            if (i < 0 || j < 0 || i >= map.length || j >= map[i].length || !map[i][j] || checkMatrix[i][j]) {
+                return;
             }
-            if (map[i][j + 1]) { checkMatrix[i][j + 1] = true }
+
+            checkMatrix[i][j] = true;
+            checkAround(map, i - 1, j);
+            checkAround(map, i + 1, j);
+            checkAround(map, i, j - 1);
+            checkAround(map, i, j + 1);
         }
 
         return result;
