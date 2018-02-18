@@ -12,7 +12,6 @@
      * Создает визуализацию нахождения количества островов
      *
      * @param {number[][]} map карта островов
-     * @returns {HTMLElement} HTML элемент
      */
     function visualizeSolution(map) {
         var checkMatrix = [],
@@ -31,10 +30,14 @@
         document.querySelectorAll('.map .map__res')[0].innerHTML = "Count: 0";
 
         setTimeout(function visualizeRows() {
-            if (i === map.length - 1) {return;}
+
+            if (i === map.length - 1) {
+                return;
+            }
 
             var j = 0;
             setTimeout(function visualizeCells() {
+
                 if (j === map[0].length) {
                     return;
                 }
@@ -49,6 +52,7 @@
 
                 j++;
                 setTimeout(visualizeCells, 200);
+
             }, 200);
 
             i++;
