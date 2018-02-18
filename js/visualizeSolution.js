@@ -30,34 +30,25 @@
         document.querySelectorAll('.map .map__res')[0].innerHTML = "Count: 0";
 
         setTimeout(function visualizeRows() {
-
             if (i === map.length - 1) {
                 return;
             }
-
             var j = 0;
             setTimeout(function visualizeCells() {
-
                 if (j === map[0].length) {
                     return;
                 }
-
                 document.querySelectorAll('.map .map__row')[i].querySelectorAll('.map__cell')[j].style.opacity = '0.5';
                 if (map[i][j] && !checkMatrix[i][j]) {
                     result++;
                     checkAroundVisual(map, i, j);
                     document.querySelectorAll('.map .map__res')[0].innerHTML = "Count: " + result;
-
                 }
-
                 j++;
                 setTimeout(visualizeCells, 200);
-
             }, 200);
-
             i++;
             setTimeout(visualizeRows, time)
-
         }, time);
 
 
@@ -70,19 +61,15 @@
          */
 
         function checkAroundVisual(map, i, j) {
-
             if (i < 0 || j < 0 || i >= map.length || j >= map[i].length || !map[i][j] || checkMatrix[i][j]) {
                 return;
             }
-
             document.querySelectorAll('.map .map__row')[i].querySelectorAll('.map__cell')[j].style.opacity = '0.5';
             checkMatrix[i][j] = true;
-
             checkAroundVisual(map, i - 1, j);
             checkAroundVisual(map, i + 1, j);
             checkAroundVisual(map, i, j - 1);
             checkAroundVisual(map, i, j + 1);
-
         }
 
         return;

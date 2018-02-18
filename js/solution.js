@@ -24,11 +24,9 @@
 
         for (i = 0; i < map.length; i++) {
             for (j = 0; j < map[i].length; j++) {
-
                 if (map[i][j] && !checkMatrix[i][j]) {
                     result++;
                     checkAround(map, i, j);
-
                 }
             }
         }
@@ -42,11 +40,9 @@
          */
 
         function checkAround(map, i, j) {
-
             if (i < 0 || j < 0 || i >= map.length || j >= map[i].length || !map[i][j] || checkMatrix[i][j]) {
                 return;
             }
-
             checkMatrix[i][j] = true;
             checkAround(map, i - 1, j);
             checkAround(map, i + 1, j);
